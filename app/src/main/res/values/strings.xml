@@ -1,0 +1,8 @@
+<escape><?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">القسام AI</string>
+<string name="app_subtitle">مساعدك الذكي في مكان واحد</string>
+<string name="welcome_message">أهلًا بك في القسام AI</string>
+<string name="chat_hint">اكتب رسالتك هنا...</string>
+<string name="send_button">إرسال</string>
+</resources></escape>
