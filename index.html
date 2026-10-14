@@ -1,0 +1,232 @@
+<escape><!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <title>القسام AI</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f6f8fc;color:#172033;font-family:Arial,sans-serif}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    .app{max-width:520px;min-height:100vh;margin:auto;background:#fff;position:relative;padding-bottom:85px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 16px;border-bottom:1px solid #edf0f5;background:#fff;position:sticky;top:0;z-index:5}
+    .brand{display:flex;align-items:center;gap:11px}
+    .logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#142c59,#477cff);display:grid;place-items:center;color:#fff;font-size:27px;font-weight:bold;box-shadow:0 5px 15px #3158b52c}
+    .brand h1{font-size:19px;margin:0 0 4px}
+    .brand p{font-size:11px;color:#8993a6;margin:0}
+    .iconbtn{border:1px solid #edf0f5;background:#fff;border-radius:12px;padding:10px;font-size:18px;color:#263858}
+    .welcome{margin:20px 16px;padding:23px 19px;border-radius:23px;color:#fff;background:linear-gradient(135deg,#14264b,#3159a7 65%,#6189ef);overflow:hidden}
+    .welcome .tag{font-size:12px;background:#ffffff20;padding:7px 11px;border-radius:20px;display:inline-block}
+    .welcome h2{font-size:25px;line-height:1.5;margin:15px 0 7px}
+    .welcome p{font-size:13px;line-height:1.9;color:#e1eaff;margin:0}
+    .section{padding:0 16px;margin-top:23px}
+    .sectionhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+    .sectionhead h3{font-size:16px;margin:0}
+    .muted{font-size:12px;color:#8b95a7}
+    .quickgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    .quick{background:#fff;border:1px solid #e9edf4;border-radius:17px;padding:15px 13px;text-align:right;min-height:112px;box-shadow:0 3px 12px #162b4b05}
+    .quick .emoji{width:39px;height:39px;border-radius:13px;background:#eef3ff;display:grid;place-items:center;font-size:20px;margin-bottom:12px}
+    .quick strong{font-size:14px;display:block;margin-bottom:6px}
+    .quick small{font-size:11px;color:#8b95a7}
+    .chatbox{margin:0 16px;border:1px solid #e8edf5;border-radius:20px;padding:14px;background:#fff}
+    .messages{height:220px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:2px 0 12px}
+    .bubble{padding:12px 13px;border-radius:15px;max-width:92%;font-size:13px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+    .bot{background:#f1f5fc;align-self:flex-start;border-bottom-right-radius:5px}
+    .user{background:#3159a7;color:white;align-self:flex-end;border-bottom-left-radius:5px}
+    .inputrow{display:flex;gap:8px;border-top:1px solid #edf0f5;padding-top:12px}
+    .inputrow textarea{resize:none;min-width:0;flex:1;border:1px solid #e5eaf2;border-radius:13px;padding:12px;outline:none;min-height:45px}
+    .send{border:0;border-radius:13px;background:#3159a7;color:#fff;padding:0 17px;font-size:20px}
+    .builder{margin:0 16px;padding:17px;border:1px solid #e8edf5;border-radius:19px}
+    .builder input,.builder textarea{width:100%;border:1px solid #e5eaf2;border-radius:12px;padding:12px;margin-top:10px;outline:none}
+    .primary{border:0;background:#3159a7;color:white;border-radius:12px;padding:12px 16px;width:100%;margin-top:11px;font-weight:bold}
+    .output{display:none;margin-top:12px;background:#f4f7fc;border-radius:12px;padding:12px;font-size:13px;line-height:1.9;overflow-wrap:anywhere}
+    .historyitem{padding:13px 0;border-bottom:1px solid #edf0f5;font-size:13px;display:flex;justify-content:space-between;gap:8px}
+    .historyitem:last-child{border:0}
+    nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;background:#fff;border-top:1px solid #edf0f5;display:flex;justify-content:space-around;padding:10px 4px calc(10px + env(safe-area-inset-bottom));z-index:10}
+    nav button{background:none;border:0;color:#929bad;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:5px;min-width:55px}
+    nav button span{font-size:20px}
+    nav button.active{color:#3159a7;font-weight:bold}
+    .page{display:none}.page.active{display:block}
+    .empty{color:#8b95a7;font-size:12px;text-align:center;padding:16px 0}
+    @media(min-width:521px){nav{bottom:0}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="logo">ق</div>
+      <div><h1>القسام AI</h1><p>مساعدك الذكي في مكان واحد</p></div>
+    </div>
+    <button class="iconbtn" onclick="showPage('history')" aria-label="سجل المحادثات">☷</button>
+  </header>  <main id="home" class="page active">
+    <section class="welcome">
+      <span class="tag">✦ مساعدك الشخصي</span>
+      <h2>أهلًا بك في القسام AI</h2>
+      <p>محادثات ذكية، وأفكار جديدة، وأدوات تساعدك على إنشاء مشاريعك من هاتفك.</p>
+    </section><section class="section">
+  <div class="sectionhead"><h3>ماذا تريد أن تفعل؟</h3><span class="muted">اكتشف الأدوات</span></div>
+  <div class="quickgrid">
+    <button class="quick" onclick="showPage('chat')"><span class="emoji">✦</span><strong>محادثة ذكية</strong><small>اسأل واكتب أفكارك</small></button>
+    <button class="quick" onclick="showPage('builder')"><span class="emoji">⌘</span><strong>إنشاء تطبيق</strong><small>ابدأ فكرة تطبيق جديد</small></button>
+    <button class="quick" onclick="showPage('history')"><span class="emoji">◷</span><strong>سجل المحادثات</strong><small>ارجع لمحادثاتك السابقة</small></button>
+    <button class="quick" onclick="showPage('about')"><span class="emoji">⚙</span><strong>حول القسام</strong><small>معلومات وإعدادات</small></button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sectionhead"><h3>ابدأ محادثة</h3><span class="muted">القسام AI</span></div>
+  <div class="chatbox">
+    <div id="homeMessages" class="messages">
+      <div class="bubble bot">مرحبًا! أنا القسام. اكتب ما تريد وسأساعدك.</div>
+    </div>
+    <div class="inputrow">
+      <textarea id="homeInput" rows="1" placeholder="اكتب رسالتك هنا..."></textarea>
+      <button class="send" onclick="sendMessage('homeInput','homeMessages')" aria-label="إرسال">➤</button>
+    </div>
+  </div>
+</section>
+
+  </main>  <main id="chat" class="page">
+    <section class="section">
+      <div class="sectionhead"><h3>المحادثة الذكية</h3><button class="iconbtn" onclick="newChat()">＋</button></div>
+      <div class="chatbox">
+        <div id="chatMessages" class="messages"><div class="bubble bot">أهلًا! كيف أقدر أساعدك اليوم؟</div></div>
+        <div class="inputrow">
+          <textarea id="chatInput" rows="1" placeholder="اكتب رسالتك..."></textarea>
+          <button class="send" onclick="sendMessage('chatInput','chatMessages')">➤</button>
+        </div>
+      </div>
+      <p class="muted" style="line-height:1.9">للحصول على ردود الذكاء الاصطناعي، سنربط هذه الواجهة بخدمة Cloudflare في الخطوة التالية.</p>
+    </section>
+  </main>  <main id="builder" class="page">
+    <section class="section">
+      <div class="sectionhead"><h3>منشئ التطبيقات</h3><span class="muted">مختبر القسام</span></div>
+      <div class="builder">
+        <div style="font-size:34px">⌘</div>
+        <h3>حوّل فكرتك إلى مشروع</h3>
+        <p class="muted" style="line-height:1.9">اكتب وصف التطبيق الذي تريد بناءه، وسنحفظ فكرتك في قائمة المشاريع.</p>
+        <input id="projectName" placeholder="اسم التطبيق">
+        <textarea id="projectDesc" rows="4" placeholder="مثال: تطبيق دردشة بتصميم أبيض مع حسابات ومحادثات..."></textarea>
+        <button class="primary" onclick="createProject()">＋ إنشاء مشروع</button>
+        <div id="projectOutput" class="output"></div>
+      </div>
+      <div class="section">
+        <div class="sectionhead"><h3>مشاريعي</h3></div>
+        <div id="projectsList"></div>
+      </div>
+    </section>
+  </main>  <main id="history" class="page">
+    <section class="section">
+      <div class="sectionhead"><h3>سجل المحادثات</h3><button class="iconbtn" onclick="clearHistory()">مسح</button></div>
+      <div id="historyList"><div class="empty">ستظهر رسائلك المحفوظة هنا.</div></div>
+    </section>
+  </main>  <main id="about" class="page">
+    <section class="section">
+      <div class="welcome"><span class="tag">الإصدار الأول</span><h2>القسام AI</h2><p>منصتك العربية للمحادثات الذكية وأفكار التطبيقات.</p></div>
+      <div class="builder">
+        <h3>الإعدادات والمعلومات</h3>
+        <p class="muted" style="line-height:2">واجهة تجريبية. الرسائل والمشاريع تحفظ محليًا في المتصفح على هذا الجهاز. الاتصال بالذكاء الاصطناعي وإنشاء تطبيقات فعلية يحتاجان إلى ربط الخدمة في الخطوة التالية.</p>
+        <button class="primary" onclick="showPage('chat')">ابدأ محادثة جديدة</button>
+      </div>
+    </section>
+  </main>  <nav>
+    <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>الرئيسية</button>
+    <button data-page="chat" onclick="showPage('chat')"><span>✦</span>المحادثة</button>
+    <button data-page="builder" onclick="showPage('builder')"><span>⌘</span>إنشاء تطبيق</button>
+    <button data-page="history" onclick="showPage('history')"><span>◷</span>السجل</button>
+    <button data-page="about" onclick="showPage('about')"><span>⚙</span>الإعدادات</button>
+  </nav>
+</div><script>
+const $=id=>document.getElementById(id);
+const getData=(key)=>{try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return []}};
+const saveData=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  if(id==='history')renderHistory();
+  if(id==='builder')renderProjects();
+  window.scrollTo(0,0);
+}
+function addBubble(container,text,type){
+  const el=document.createElement('div');
+  el.className='bubble '+type;
+  el.textContent=text;
+  $(container).appendChild(el);
+  $(container).scrollTop=$(container).scrollHeight;
+}
+async function sendMessage(inputId,containerId){
+  const input=$(inputId),message=input.value.trim();
+  if(!message)return;
+  input.value='';
+  addBubble(containerId,message,'user');
+  const history=getData('alqassam_history');
+  history.unshift({text:message,time:new Date().toLocaleString('ar')});
+  saveData('alqassam_history',history.slice(0,100));
+  const pending=document.createElement('div');
+  pending.className='bubble bot';pending.textContent='لحظة، أجهز الرد...';
+  $(containerId).appendChild(pending);
+  try{
+    const response=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message})
+    });
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||'تعذر الاتصال');
+    pending.textContent=data.reply||data.response||'وصل الرد بدون نص.';
+  }catch(e){
+    pending.textContent='الواجهة تعمل، لكن خدمة الذكاء الاصطناعي غير مربوطة أو لم يصل رد. سنضبط Cloudflare في الخطوة التالية.';
+  }
+}
+function newChat(){
+  $('chatMessages').innerHTML='';
+  addBubble('chatMessages','بدأت محادثة جديدة. كيف أساعدك؟','bot');
+}
+function createProject(){
+  const name=$('projectName').value.trim();
+  const desc=$('projectDesc').value.trim();
+  if(!name||!desc){alert('اكتب اسم التطبيق ووصف فكرته أولًا.');return;}
+  const projects=getData('alqassam_projects');
+  projects.unshift({name,desc,time:new Date().toLocaleString('ar')});
+  saveData('alqassam_projects',projects);
+  $('projectName').value='';$('projectDesc').value='';
+  $('projectOutput').style.display='block';
+  $('projectOutput').textContent='تم حفظ فكرتك محليًا. ربط مولّد الكود الفعلي سيكون في الخطوة التالية.';
+  renderProjects();
+}
+function renderProjects(){
+  const list=$('projectsList'),projects=getData('alqassam_projects');
+  list.innerHTML='';
+  if(!projects.length){list.innerHTML='<div class="empty">لم تنشئ مشاريع بعد.</div>';return;}
+  projects.forEach(p=>{
+    const row=document.createElement('div');row.className='historyitem';
+    const info=document.createElement('div');
+    const title=document.createElement('strong');title.textContent=p.name;
+    const desc=document.createElement('div');desc.className='muted';desc.textContent=p.desc;
+    info.append(title,desc);row.append(info);list.append(row);
+  });
+}
+function renderHistory(){
+  const list=$('historyList'),items=getData('alqassam_history');
+  list.innerHTML='';
+  if(!items.length){list.innerHTML='<div class="empty">ستظهر رسائلك المحفوظة هنا.</div>';return;}
+  items.forEach(item=>{
+    const row=document.createElement('div');row.className='historyitem';
+    const txt=document.createElement('div');txt.textContent=item.text;
+    const time=document.createElement('span');time.className='muted';time.textContent=item.time;
+    row.append(txt,time);list.append(row);
+  });
+}
+function clearHistory(){
+  if(confirm('هل تريد مسح سجل الرسائل المحفوظ؟')){
+    saveData('alqassam_history',[]);renderHistory();
+  }
+}
+renderProjects();
+</script></body>
+</html></escape>
