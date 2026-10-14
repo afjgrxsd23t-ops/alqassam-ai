@@ -1,0 +1,9 @@
+<escape>{
+"$schema": "node_modules/wrangler/config-schema.json",
+"name": "alqassam-ai",
+"main": "src/worker.js",
+"compatibility_date": "2026-10-15",
+"ai": {
+"binding": "AI"
+}
+}</escape>
