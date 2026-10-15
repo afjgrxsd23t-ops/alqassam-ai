@@ -1,8 +1,8 @@
-<escape><?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="alqassam_blue">#3159A7</color>
-<color name="alqassam_dark">#192741</color>
-<color name="alqassam_white">#FFFFFF</color>
-<color name="alqassam_background">#F6F8FC</color>
-<color name="alqassam_text_muted">#8993A6</color>
-</resources></escape>
+    <color name="alqassam_blue">#3159A7</color>
+    <color name="alqassam_dark">#192741</color>
+    <color name="alqassam_white">#FFFFFF</color>
+    <color name="alqassam_background">#F6F8FC</color>
+    <color name="alqassam_text_muted">#8993A6</color>
+</resources>
